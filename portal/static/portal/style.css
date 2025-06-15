@@ -1,0 +1,480 @@
+/* Reset default spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body general style */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  
+  /* Container and layout */
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  /* Headings */
+  h1, h2, h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+  
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Forms */
+  input[type="text"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  /* Buttons */
+  button, .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover, .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+  
+    .container {
+      padding: 10px;
+    }
+  
+    table, thead, tbody, th, td, tr {
+      display: block;
+      width: 100%;
+    }
+  
+    th {
+      display: none;
+    }
+  
+    td {
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+  
+    td::before {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 45%;
+      white-space: nowrap;
+      font-weight: bold;
+      color: #555;
+      content: attr(data-label);
+    }
+  }
+
+
+  /* ----- STYLE ANNOUNCEMENT ITEMS (inside #news-container) ----- */
+#news-container > div {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+#news-container img {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+#news-container h3, 
+#news-container .topic {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+#news-container p,
+#news-container .message {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  #news-container > div {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  #news-container img {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+/* -------- Enhanced Form Styling -------- */
+form {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+/* Submit button inside form */
+form button[type="submit"],
+form .btn-submit {
+  width: 100%;
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover,
+form .btn-submit:hover {
+  background-color: #0056b3;
+}
+
+
+/* --- Mini Filter Form with Margin Top Only --- */
+.filter-form {
+  background: #e3f2fd;
+  border-left: 4px solid #2196f3;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 20px;         /* Added margin at the top */
+  margin-bottom: 0;         /* No margin at the bottom */
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.08);
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 14px;
+}
+
+.filter-form label {
+  font-weight: 500;
+  color: #1565c0;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.filter-form input[type="text"],
+.filter-form select {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #90caf9;
+  background-color: #fff;
+  margin-bottom: 10px;
+  font-size: 13px;
+  width: 100%;
+}
+
+.filter-form button[type="submit"] {
+  background-color: #039be5;
+  padding: 6px 16px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.filter-form button[type="submit"]:hover {
+  background-color: #0288d1;
+}
+
+
+/* --- Table Layout for Grade Report --- */
+.grade-report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.grade-report-table th,
+.grade-report-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.grade-report-table th {
+  background-color: #039be5;
+  color: white;
+  font-weight: bold;
+}
+
+.grade-report-table td {
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.grade-report-table tr:hover {
+  background-color: #e1f5fe;
+}
+
+.grade-report-table td strong {
+  color: #039be5;
+}
+
+/* Container for the grade report */
+.grade-report-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Align SGPA with the table */
+.grade-report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grade-report-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.grade-report-header .sgpa {
+  font-size: 16px;
+  font-weight: normal;
+  color: #039be5;
+}
+
+
+/* Profile Page Styling */
+
+/* Overall Body Styling */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+/* Profile Header */
+h4 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Profile List Styling */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+ul li strong {
+  color: #007bff;
+}
+
+/* Profile Image Styling */
+img {
+  display: block;
+  max-width: 150px;
+  height: auto;
+  border-radius: 50%;
+  margin: 20px auto;
+  border: 2px solid #007bff;
+}
+
+/* Form Styling for Image URL */
+form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+form label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+form input[type="url"] {
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0056b3;
+}
+
+
+@media (max-width: 768px) {
+  
+  ul {
+      width: 90%;
+      padding: 15px;
+  }
+
+  form input[type="url"] {
+      width: 80%;
+  }
+}
+
+
+.index-image-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0;
+  padding: 20px;
+  
+}
+
+.index-image-section img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+}
+
+.welcome-box {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.welcome-box h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.welcome-box p {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+
+  

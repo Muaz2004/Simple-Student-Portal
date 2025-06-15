@@ -1,0 +1,40 @@
+{% extends "portal/layout.html" %}
+
+{% block body %}
+    <h2>📊 Semester {{ semister }} Grade Report</h2>
+
+    <!-- Form for submitting semester -->
+    <form action="{% url 'asses' %}" method="get" class="filter-form">
+        {% csrf_token %}
+      
+        <label for="sem">Write Semester</label>
+        <input type="number" name="semister" id="sem">
+        <button type="submit" class="btn btn-success">Get Grade Report</button>
+    </form>
+
+    {% if sgpa is not None %}
+    <h3 style="margin-left: 220px;">SGPA: {{ sgpa }}</h3>
+
+        <!-- Grade Report Table -->
+        <div class="grade-report-container">
+            <table class="grade-report-table">
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Result</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ass in assessments %}
+                        <tr>
+                            <td>{{ ass.course.CourseName }}</td>
+                            <td>{{ ass.result }}</td>
+                            <td>{{ ass.Grade }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

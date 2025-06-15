@@ -1,0 +1,23 @@
+{% extends "portal/layout.html" %}
+
+{% block body %}
+    {% if profile is not None %}
+        <h4>{{ profile.name }} student at AAU</h4>
+        <ul>
+            <li><strong>Name:</strong> {{ profile.name }}</li>
+            <li><strong>Department:</strong> {{ profile.department }}</li> 
+            <li><strong>CGPA:</strong> {{ profile.cgpa }}</li>
+            <li><strong>Batch:</strong> {{ profile.department.acadamicyear }}</li>
+        </ul>
+
+        {% if profile.image %}
+        <img src="{{ profile.image }}" alt="photo">
+        {% else %}
+            <form action="{% url 'upload' %}" method="get">
+                <label for="imageUrl">Enter image URL:</label>
+                <input type="url" id="imageUrl" name="img" placeholder="https://example.com/image.jpg" required>
+                <button type="submit">Submit</button>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}
