@@ -5,26 +5,47 @@
 {% if user.is_authenticated %}
 <div class="max-w-6xl mx-auto py-10 px-4">
 
-    <!-- Top Action Cards -->
+    <!-- Top Motivational Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="bg-blue-100 text-blue-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Messages</div>
-        <div class="bg-green-100 text-green-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Topics</div>
-        <div class="bg-yellow-100 text-yellow-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Events</div>
-        <div class="bg-purple-100 text-purple-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Notifications</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Stay Curious</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Keep Learning</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Aim High</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Never Give Up</div>
     </div>
 
-    <h1 class="text-3xl font-bold text-center mb-8 text-blue-700">📢 University Announcements</h1>
+    <!-- Main Announcement Section -->
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">University Announcements</h1>
 
     <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- News cards will be populated here dynamically -->
+
+        <!-- Example Structured Card -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform transition duration-500 hover:scale-105 animate-fadeIn">
+            <div class="bg-gray-50 px-5 py-3 border-b border-gray-200">
+                <h2 class="font-bold text-xl text-gray-800">Welcome Back Students</h2>
+            </div>
+            <div class="p-5 text-gray-700">
+                <p>Check out the latest updates, registration deadlines, and academic news to stay on top of your semester.</p>
+            </div>
+        </div>
+
+        <!-- Additional sample card -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform transition duration-500 hover:scale-105 animate-fadeIn">
+            <div class="bg-gray-50 px-5 py-3 border-b border-gray-200">
+                <h2 class="font-bold text-xl text-gray-800">Library Resources Updated</h2>
+            </div>
+            <div class="p-5 text-gray-700">
+                <p>New e-books and journals have been added to the digital library. Explore them for your research and projects.</p>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Bottom Action Cards -->
+    <!-- Bottom Motivational Cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-        <div class="bg-blue-100 text-blue-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Submit Feedback</div>
-        <div class="bg-green-100 text-green-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Ask Question</div>
-        <div class="bg-yellow-100 text-yellow-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Schedule</div>
-        <div class="bg-purple-100 text-purple-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Support</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Believe in Yourself</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Consistency is Key</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Strive for Excellence</div>
+        <div class="bg-gray-100 text-gray-800 font-semibold text-center py-3 rounded-lg shadow animate-pulse">Every Step Counts</div>
     </div>
 
 </div>
@@ -39,3 +60,13 @@
 </div>
 {% endif %}
 {% endblock %}
+
+<style>
+@keyframes fadeIn {
+  0% {opacity: 0; transform: translateY(10px);}
+  100% {opacity: 1; transform: translateY(0);}
+}
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-in-out forwards;
+}
+</style>
