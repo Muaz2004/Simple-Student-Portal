@@ -7,17 +7,21 @@
         <p class="text-center text-red-600 font-semibold mb-4">{{ message }}</p>
     {% endif %}
 
+    {% if success_message %}
+        <p class="text-center text-green-600 font-semibold mb-4">{{ success_message }}</p>
+    {% endif %}
+
     <!-- Academic Year & Semester Selection -->
     <form action="{% url 'cregistration' %}" method="get" class="space-y-4 mb-6 bg-white p-4 rounded shadow">
         {% csrf_token %}
         <div>
             <label for="ay" class="block font-semibold mb-1">Academic Year</label>
-            <input type="number" name="acyear" id="ay" required placeholder="e.g. 2024"
+            <input type="number" name="acyear" id="ay" required placeholder="2024"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
         <div>
             <label for="sem" class="block font-semibold mb-1">Semester</label>
-            <input type="number" name="semister" id="sem" required placeholder="e.g. 1 or 2"
+            <input type="number" name="semister" id="sem" required placeholder=" 1 or 2"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
         <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">Get Courses</button>

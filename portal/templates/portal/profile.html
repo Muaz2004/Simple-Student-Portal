@@ -1,33 +1,60 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-<div class="max-w-md mx-auto mt-6 p-6 bg-white rounded shadow">
+<div class="max-w-xl mx-auto mt-12 bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-2xl p-8">
 
-    <h3 class="text-center text-xl font-bold mb-4">🎓 Student Profile</h3>
+    <!-- Profile Header -->
+    <div class="flex flex-col items-center text-center mb-8">
+        <h2 class="text-3xl font-bold text-blue-700 mb-2">Student Profile</h2>
+        <p class="text-gray-600">Your academic details at a glance</p>
+    </div>
 
     {% if profile %}
-    <ul class="space-y-2">
-        <li><strong>Name:</strong> {{ profile.name.username|default:"Not Found" }}</li>
-        <li><strong>Department:</strong> {{ profile.department.dep_name|default:"Not Found" }}</li>
-        <li><strong>Batch:</strong> {{ profile.department.acadamicyear|default:"Not Found" }}</li>
-        <li><strong>CGPA:</strong> {{ profile.cgpa|default:"Not Found" }}</li>
-    </ul>
-
-    {% if profile.image %}
-    <div class="mt-4 flex justify-center">
-        <img src="{{ profile.image }}" alt="Student photo" class="rounded-full w-36 h-36 object-cover">
+    <!-- Profile Image -->
+    <div class="flex justify-center mb-6">
+        {% if profile.image %}
+        <img src="{{ profile.image }}" alt="Student Photo" class="w-36 h-36 rounded-full border-4 border-blue-600 shadow-lg object-cover">
+        {% else %}
+        <div class="w-36 h-36 rounded-full border-4 border-dashed border-blue-400 flex items-center justify-center text-blue-400 font-semibold shadow-inner">
+            No Image
+        </div>
+        {% endif %}
     </div>
-    {% else %}
-    <form action="{% url 'upload' %}" method="get" class="mt-4 space-y-2">
-        <label for="imageUrl" class="block font-semibold">Enter image URL:</label>
-        <input type="url" id="imageUrl" name="img" required
-               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">Upload</button>
-    </form>
+
+    <!-- Profile Info -->
+    <div class="space-y-4">
+        <div class="flex justify-between bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+            <span class="font-semibold text-gray-700">Name:</span>
+            <span class="text-gray-900">{{ profile.name.username|default:"Not Found" }}</span>
+        </div>
+        <div class="flex justify-between bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+            <span class="font-semibold text-gray-700">Department:</span>
+            <span class="text-gray-900">{{ profile.department.dep_name|default:"Not Found" }}</span>
+        </div>
+        <div class="flex justify-between bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+            <span class="font-semibold text-gray-700">Batch:</span>
+            <span class="text-gray-900">{{ profile.department.acadamicyear|default:"Not Found" }}</span>
+        </div>
+        <div class="flex justify-between bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
+            <span class="font-semibold text-gray-700">CGPA:</span>
+            <span class="text-gray-900">{{ profile.cgpa|default:"Not Found" }}</span>
+        </div>
+    </div>
+
+    <!-- Upload Image -->
+    {% if not profile.image %}
+    <div class="mt-8 bg-blue-100 p-4 rounded-xl text-center">
+        <p class="text-gray-700 mb-3 font-medium">Add a profile picture to personalize your account</p>
+        <form action="{% url 'upload' %}" method="get" class="flex flex-col space-y-3">
+            <input type="url" id="imageUrl" name="img" placeholder="https://example.com/image.jpg" required
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button type="submit" class="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition font-semibold">Upload</button>
+        </form>
+    </div>
     {% endif %}
 
     {% else %}
-    <p class="text-center text-red-600 font-semibold">Student profile not found.</p>
+    <p class="text-center text-red-600 font-semibold mt-6">Student profile not found.</p>
     {% endif %}
 </div>
 {% endblock %}

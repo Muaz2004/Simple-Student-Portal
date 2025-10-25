@@ -12,7 +12,7 @@
     <nav class="bg-blue-700 text-white shadow p-4 flex justify-between items-center">
         <!-- Brand / Logo -->
         <div class="font-bold text-lg">
-            <a href="{% url 'index' %}" class="hover:text-blue-200">AAU Portal</a>
+            <a href="{% url 'index' %}" class="hover:text-blue-200">Mu Portal</a>
         </div>
 
         <!-- Navigation Items (moved to right) -->
@@ -24,6 +24,14 @@
                 <li><a href="{% url 'asses' %}" class="hover:text-blue-200 font-semibold">Grade Report</a></li>
                 <li><a href="{% url 'cregistration' %}" class="hover:text-blue-200 font-semibold">Course Registration</a></li>
                 <li><a href="{% url 'edunews' %}" class="hover:text-blue-200 font-semibold">News</a></li>
+
+                <!-- Logged-in Username -->
+                <li>
+                    <a href="{% url 'profile' %}" class="hover:text-blue-200 font-semibold">
+                        {{ user.username }}
+                    </a>
+                </li>
+
                 <li><a href="{% url 'logout' %}" class="text-red-400 hover:text-red-600 font-semibold">Log Out</a></li>
             {% else %}
                 <li><a href="{% url 'login' %}" class="hover:text-blue-200 font-semibold">Login</a></li>
@@ -39,7 +47,7 @@
 
     <!-- Footer -->
     <footer class="bg-gray-100 text-gray-800 p-4 text-center text-sm">
-        &copy; 2025 AAU Student Portal. Developed by Muaz.
+        &copy; 2025 Mu Simple Students Portal. Developed by Muaz.
     </footer>
 
 </body>
