@@ -1,17 +1,39 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-<div class="max-w-6xl mx-auto p-6 flex flex-col md:flex-row gap-6 items-center">
-    <div class="flex-1 text-center md:text-left">
-        <h1 class="text-3xl font-bold mb-2">Welcome to AAU Student Portal 🎓</h1>
-        <p class="text-gray-700">Your one-stop platform for managing grades, registration, and academic records with ease.</p>
+<div class="max-w-6xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Welcome to AAU Student Portal 🎓</h1>
+    {% if user.is_authenticated %}
+        <p class="text-center text-gray-700 mb-10">Your portal for grades, registration, and announcements.</p>
+    {% else %}
+        <p class="text-center text-gray-700 mb-10">Access academic info, grades, and announcements. Please log in or register to manage your portal.</p>
+    {% endif %}
+
+    <!-- Info Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-blue-700 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition">
+            <h2 class="font-bold text-xl mb-2">Library</h2>
+            <p>Access academic resources and books online.</p>
+        </div>
+        <div class="bg-blue-700 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition">
+            <h2 class="font-bold text-xl mb-2">Courses</h2>
+            <p>View available courses and manage registrations.</p>
+        </div>
+        <div class="bg-blue-700 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition">
+            <h2 class="font-bold text-xl mb-2">Grades</h2>
+            <p>Check your semester GPA and performance report.</p>
+        </div>
+        <div class="bg-blue-700 text-white p-6 rounded-xl shadow-lg hover:scale-105 transform transition">
+            <h2 class="font-bold text-xl mb-2">Announcements</h2>
+            <p>Stay updated with the latest university news.</p>
+        </div>
     </div>
 
-    <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
-        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
-        <img src="https://images.unsplash.com/photo-1534009916851-7850ba974f9c?w=294" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
-        <img src="https://images.unsplash.com/photo-1520467795206-62e33627e6ce?w=294" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
-        <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=294" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
-    </div>
+    {% if not user.is_authenticated %}
+        <div class="flex justify-center mt-8 space-x-4">
+            <a href="{% url 'login' %}" class="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">Login</a>
+            <a href="{% url 'register' %}" class="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">Register</a>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

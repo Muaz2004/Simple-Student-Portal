@@ -1,11 +1,19 @@
 {% extends "portal/layout.html" %}
-{% load static %}
 
 {% block body %}
-    <h2>🌍 Important Announcements</h2>
+{% if user.is_authenticated %}
+<div class="max-w-5xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold text-center mb-8">📢 University Announcements</h1>
 
-    <div id="news-container"></div>
+    <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- News cards will be populated here -->
+    </div>
+</div>
 
-    <script src="{% static 'portal/script.js' %}"></script>
-
+<script src="{% static 'portal/script.js' %}"></script>
+{% else %}
+<div class="flex justify-center items-center min-h-[80vh]">
+    <p class="text-center text-gray-700">Please <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:underline">log in</a> to view news.</p>
+</div>
+{% endif %}
 {% endblock %}
