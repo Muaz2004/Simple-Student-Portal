@@ -1,4 +1,5 @@
 {% extends "portal/layout.html" %}
+{% load static %}
 
 {% block body %}
 {% if user.is_authenticated %}
@@ -13,7 +14,9 @@
 <script src="{% static 'portal/script.js' %}"></script>
 {% else %}
 <div class="flex justify-center items-center min-h-[80vh]">
-    <p class="text-center text-gray-700">Please <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:underline">log in</a> to view news.</p>
+    <p class="text-center text-gray-700">
+        Please <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:underline">log in</a> to view news.
+    </p>
 </div>
 {% endif %}
 {% endblock %}
