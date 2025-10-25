@@ -5,27 +5,30 @@
 {% if user.is_authenticated %}
 <div class="max-w-6xl mx-auto py-10 px-4">
 
-    <h1 class="text-3xl font-bold text-center mb-12 text-blue-700">📢 University Announcements</h1>
-
-    <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Example News Card (will be replaced dynamically) -->
-        <div class="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-            <h2 class="text-xl font-bold mb-2 text-gray-800">Event Title</h2>
-            <p class="text-gray-600 mb-4">Brief description of the event or announcement to catch student attention.</p>
-            <p class="text-sm text-gray-400">Posted on: 2025-10-25</p>
-        </div>
-
-        <div class="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
-            <h2 class="text-xl font-bold mb-2 text-gray-800">Event Title</h2>
-            <p class="text-gray-600 mb-4">Brief description of the event or announcement to catch student attention.</p>
-            <p class="text-sm text-gray-400">Posted on: 2025-10-24</p>
-        </div>
-
-        <!-- More cards will be dynamically added here -->
+    <!-- Top Action Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-blue-100 text-blue-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Messages</div>
+        <div class="bg-green-100 text-green-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Topics</div>
+        <div class="bg-yellow-100 text-yellow-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Events</div>
+        <div class="bg-purple-100 text-purple-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Notifications</div>
     </div>
+
+    <h1 class="text-3xl font-bold text-center mb-8 text-blue-700">📢 University Announcements</h1>
+
+    <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- News cards will be populated here dynamically -->
+    </div>
+
+    <!-- Bottom Action Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+        <div class="bg-blue-100 text-blue-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Submit Feedback</div>
+        <div class="bg-green-100 text-green-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Ask Question</div>
+        <div class="bg-yellow-100 text-yellow-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Schedule</div>
+        <div class="bg-purple-100 text-purple-800 font-semibold text-center py-3 rounded-lg shadow hover:scale-105 transform transition cursor-pointer">Support</div>
+    </div>
+
 </div>
 
-<!-- Link to your JS for dynamic news -->
 <script src="{% static 'portal/script.js' %}"></script>
 
 {% else %}
