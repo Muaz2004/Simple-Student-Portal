@@ -1,42 +1,54 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-<div class="max-w-4xl mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-4">📊 Academic Year {{ acadamicyear }} — Semester {{ semister }} Grade Report</h2>
+<div class="min-h-screen bg-gray-100 flex flex-col items-center py-10 px-4">
 
-    <!-- Form for submitting academic year and semester -->
-    <form action="{% url 'asses' %}" method="get" class="space-y-4 bg-white p-4 rounded shadow">
+    <!-- Page Header -->
+    <div class="w-full max-w-4xl text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-800 mb-2">📊 Academic Grade Report</h2>
+        <p class="text-gray-600">View your semester-wise grades and SGPA. Select your academic year and semester to see the report below.</p>
+    </div>
+
+    <!-- Form for selecting Academic Year and Semester -->
+    <form action="{% url 'asses' %}" method="get" class="w-full max-w-4xl space-y-4 bg-white p-6 rounded-2xl shadow-md">
         {% csrf_token %}
         <div>
-            <label for="year" class="block font-semibold mb-1">Academic Year</label>
-            <input type="number" name="acadamicyear" id="year" required placeholder="2024" 
+            <label for="year" class="block font-semibold mb-1 text-gray-700">Academic Year</label>
+            <input type="number" name="acadamicyear" id="year" required placeholder="2024"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
 
         <div>
-            <label for="sem" class="block font-semibold mb-1">Semester</label>
+            <label for="sem" class="block font-semibold mb-1 text-gray-700">Semester</label>
             <input type="number" name="semister" id="sem" required placeholder="1 or 2"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
 
-        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">Get Grade Report</button>
+        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">
+            Get Grade Report
+        </button>
     </form>
 
     {% if sgpa is not None %}
-    <h4 class="text-center text-lg mt-6 font-semibold">SGPA = <span class="text-blue-600">{{ sgpa }}</span></h4>
+    <!-- SGPA Display -->
+    <div class="w-full max-w-4xl mt-6 bg-white p-6 rounded-2xl shadow-md text-center">
+        <h4 class="text-xl font-semibold mb-2">Semester Grade Point Average (SGPA)</h4>
+        <p class="text-2xl text-blue-600 font-bold">{{ sgpa }}</p>
+    </div>
 
-    <div class="overflow-x-auto mt-4">
-        <table class="min-w-full bg-white rounded shadow overflow-hidden">
+    <!-- Grade Table -->
+    <div class="w-full max-w-4xl overflow-x-auto mt-6">
+        <table class="min-w-full bg-white rounded-2xl shadow overflow-hidden">
             <thead class="bg-blue-100">
                 <tr>
-                    <th class="px-4 py-2 text-left">Course Name</th>
-                    <th class="px-4 py-2 text-left">Result</th>
-                    <th class="px-4 py-2 text-left">Grade</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Course Name</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Result</th>
+                    <th class="px-4 py-3 text-left font-semibold text-gray-700">Grade</th>
                 </tr>
             </thead>
             <tbody>
                 {% for ass in assessments %}
-                <tr class="border-b">
+                <tr class="border-b hover:bg-gray-50 transition">
                     <td class="px-4 py-2">{{ ass.course.CourseName }}</td>
                     <td class="px-4 py-2">{{ ass.result }}</td>
                     <td class="px-4 py-2">{{ ass.Grade }}</td>

@@ -1,44 +1,55 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-<div class="max-w-2xl mx-auto p-6">
+<div class="min-h-screen bg-gray-100 flex flex-col items-center py-10 px-4">
 
-    {% if message %}
-        <p class="text-center text-red-600 font-semibold mb-4">{{ message }}</p>
-    {% endif %}
-
-    {% if success_message %}
-        <p class="text-center text-green-600 font-semibold mb-4">{{ success_message }}</p>
-    {% endif %}
+    <!-- Page Header -->
+    <div class="w-full max-w-2xl text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-gray-800 mb-2">📚 Course Registration</h2>
+        <p class="text-gray-600">Select your academic year and semester to see available courses. You can choose multiple courses at once.</p>
+    </div>
 
     <!-- Academic Year & Semester Selection -->
-    <form action="{% url 'cregistration' %}" method="get" class="space-y-4 mb-6 bg-white p-4 rounded shadow">
+    <form action="{% url 'cregistration' %}" method="get" class="w-full max-w-2xl space-y-4 mb-6 bg-white p-6 rounded-2xl shadow-md">
         {% csrf_token %}
         <div>
-            <label for="ay" class="block font-semibold mb-1">Academic Year</label>
+            <label for="ay" class="block font-semibold mb-1 text-gray-700">Academic Year</label>
             <input type="number" name="acyear" id="ay" required placeholder="2024"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
         <div>
-            <label for="sem" class="block font-semibold mb-1">Semester</label>
-            <input type="number" name="semister" id="sem" required placeholder=" 1 or 2"
+            <label for="sem" class="block font-semibold mb-1 text-gray-700">Semester</label>
+            <input type="number" name="semister" id="sem" required placeholder="1 or 2"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">Get Courses</button>
+        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">
+            Get Courses
+        </button>
     </form>
 
+    <!-- Only show courses if filtered results exist -->
     {% if av_course %}
-    <div class="bg-white p-4 rounded shadow">
-        <h4 class="text-lg font-semibold mb-4 text-center">Course Registration</h4>
-        <form method="POST" action="{% url 'cregistration' %}" class="space-y-4">
+    <div class="w-full max-w-2xl bg-white p-6 rounded-2xl shadow-md">
+
+        <!-- Sub-header -->
+        <h3 class="text-xl font-semibold mb-3 text-gray-800 text-center">Available Courses</h3>
+        <p class="text-gray-600 text-center mb-4">Select one or more courses from the list below and submit to register.</p>
+
+        <!-- Success Message -->
+        <div id="success-message" class="hidden bg-green-50 border-l-4 border-green-600 text-green-700 p-4 rounded mb-4 shadow">
+            🎉 Successfully registered for the selected courses!
+        </div>
+
+        <!-- Course Form -->
+        <form id="course-form" method="POST" action="{% url 'cregistration' %}" class="space-y-4">
             {% csrf_token %}
             <input type="hidden" name="acyear" value="{{ request.GET.acyear }}">
             <input type="hidden" name="semister" value="{{ request.GET.semister }}">
-            
+
             <div>
-                <label for="course_select" class="block font-semibold mb-1">Select Courses</label>
+                <label for="course_select" class="block font-semibold mb-1 text-gray-700">Select Courses</label>
                 <select name="courses[]" id="course_select" multiple
-                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400">
                     {% for course in av_course %}
                         <option value="{{ course.id }}">{{ course.CourseName }}</option>
                     {% endfor %}
@@ -46,11 +57,56 @@
                 <p class="text-gray-500 text-sm mt-1">Hold Ctrl (Windows) or Cmd (Mac) to select multiple courses.</p>
             </div>
 
-            <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 rounded hover:bg-green-700 transition">Submit Registration</button>
+            <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 rounded hover:bg-green-700 transition">
+                Submit Registration
+            </button>
         </form>
     </div>
-    {% else %}
-        <p class="text-center text-gray-600 font-semibold">No courses available for this academic year and semester.</p>
     {% endif %}
+
 </div>
+
+<!-- AJAX + Reload Script -->
+
+<script>
+document.getElementById('course-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const msg = document.getElementById('success-message');
+    const select = document.getElementById('course_select');
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            // Show success message
+            msg.classList.remove('hidden');
+
+            // Remove selected courses immediately
+            Array.from(select.selectedOptions).forEach(option => option.remove());
+
+            // Hide success message after 4 seconds
+            setTimeout(() => msg.classList.add('hidden'), 4000);
+
+            // Reload page after 10 seconds
+            setTimeout(() => location.reload(), 10000);
+        } else {
+            alert('Error registering courses. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An unexpected error occurred.');
+    });
+});
+</script>
+
 {% endblock %}
