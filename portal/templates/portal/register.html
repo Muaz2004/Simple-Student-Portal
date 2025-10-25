@@ -1,30 +1,30 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
+<div class="flex justify-center items-center min-h-[80vh]">
+    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-6">Register</h2>
 
-    <h2>Register</h2>
+        {% if message %}
+            <p class="text-red-600 font-semibold mb-4 text-center">{{ message }}</p>
+        {% endif %}
 
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
+        <form action="{% url 'register' %}" method="post" class="space-y-4">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="email" name="email" placeholder="Email Address" required
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="password" name="password" placeholder="Password" required
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="password" name="confirmation" placeholder="Confirm Password" required
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 rounded hover:bg-green-700 transition">Register</button>
+        </form>
 
-    <form action="{% url 'register' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="email" name="email" placeholder="Email Address">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="Register">
-    </form>
-
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-
+        <p class="mt-4 text-center text-gray-700">Already have an account? 
+            <a href="{% url 'login' %}" class="text-blue-600 font-semibold hover:underline">Log In here</a>
+        </p>
+    </div>
+</div>
 {% endblock %}

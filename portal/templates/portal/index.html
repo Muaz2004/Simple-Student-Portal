@@ -1,17 +1,17 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-<div class="index-image-section">
+<div class="max-w-6xl mx-auto p-6 flex flex-col md:flex-row gap-6 items-center">
+    <div class="flex-1 text-center md:text-left">
+        <h1 class="text-3xl font-bold mb-2">Welcome to AAU Student Portal 🎓</h1>
+        <p class="text-gray-700">Your one-stop platform for managing grades, registration, and academic records with ease.</p>
+    </div>
 
-  <div class="welcome-box">
-    <h1>Welcome to AAU Student Portal 🎓</h1>
-    <p>Your one-stop platform for managing grades, registration, and academic records with ease.</p>
-  </div>
-
-  <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHN0dWRlbnRzfGVufDB8fDB8fHww" alt="Campus Image">
-  <img src="https://images.unsplash.com/photo-1534009916851-7850ba974f9c?w=294&dpr=2&h=294&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXRodW1ibmFpbHx8ODU4NTY1MTV8fGVufDB8fHx8fA%3D%3D" alt="Campus Image">
-  <img src="https://images.unsplash.com/photo-1520467795206-62e33627e6ce?w=294&dpr=2&h=294&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXRodW1ibmFpbHx8NTU1MjY3Nnx8ZW58MHx8fHx8" alt="Campus Image">
-  <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=294&dpr=2&h=294&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXRodW1ibmFpbHx8Nzk4Mjk1NTF8fGVufDB8fHx8fA%3D%3D" alt="Campus Image">
-
+    <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=600" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
+        <img src="https://images.unsplash.com/photo-1534009916851-7850ba974f9c?w=294" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
+        <img src="https://images.unsplash.com/photo-1520467795206-62e33627e6ce?w=294" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
+        <img src="https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0?w=294" class="rounded shadow object-cover h-32 w-full" alt="Campus Image">
+    </div>
 </div>
 {% endblock %}

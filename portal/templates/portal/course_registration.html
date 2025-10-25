@@ -1,71 +1,52 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-  {% if message %}
-    <h3 class="text-center text-danger">{{ message }}</h3>
-  {% endif %}
+<div class="max-w-2xl mx-auto p-6">
 
-  <!-- Academic Year & Semester Selection -->
-  <form action="{% url 'cregistration' %}" method="get" class="filter-form mb-4">
-    {% csrf_token %}
-    
-    <div class="form-group mb-2">
-      <label for="ay">Academic Year</label>
-      <input type="number" name="acyear" id="ay" class="form-control" required placeholder="e.g. 2024">
-    </div>
+    {% if message %}
+        <p class="text-center text-red-600 font-semibold mb-4">{{ message }}</p>
+    {% endif %}
 
-    <div class="form-group mb-3">
-      <label for="sem">Semester</label>
-      <input type="number" name="semister" id="sem" class="form-control" required placeholder="e.g. 1 or 2">
-    </div>
-
-    <button type="submit" class="btn btn-success w-100">Get Courses</button>
-  </form>
-
-  <!-- Course Registration -->
-  <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-
-        <div class="card shadow rounded-4">
-          <div class="card-body">
-            <h4 class="card-title text-center mb-4">Course Registration</h4>
-            
-            {% if not av_course %}
-              <div class="alert alert-info text-center" role="alert">
-                No course available right now for this academic year and semester.
-              </div>
-            {% else %}
-              <form method="POST" action="{% url 'cregistration' %}">
-                {% csrf_token %}
-
-                <!-- Hidden fields to pass year and semester to POST -->
-                <input type="hidden" name="acyear" value="{{ request.GET.acyear }}">
-                <input type="hidden" name="semister" value="{{ request.GET.semister }}">
-
-                <div class="mb-3">
-                  <label for="course_select" class="form-label fw-semibold">Select Courses</label>
-                  <select 
-                    name="courses[]" 
-                    id="course_select" 
-                    class="form-select" 
-                    multiple 
-                    aria-label="Multiple select example"
-                  >
-                    {% for course in av_course %}
-                      <option value="{{ course.id }}">{{ course.CourseName }}</option>
-                    {% endfor %}
-                  </select>
-                  <div class="form-text">Hold Ctrl (Windows) or Cmd (Mac) to select multiple courses.</div>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">Submit Registration</button>
-              </form>
-            {% endif %}
-          </div>
+    <!-- Academic Year & Semester Selection -->
+    <form action="{% url 'cregistration' %}" method="get" class="space-y-4 mb-6 bg-white p-4 rounded shadow">
+        {% csrf_token %}
+        <div>
+            <label for="ay" class="block font-semibold mb-1">Academic Year</label>
+            <input type="number" name="acyear" id="ay" required placeholder="e.g. 2024"
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
+        <div>
+            <label for="sem" class="block font-semibold mb-1">Semester</label>
+            <input type="number" name="semister" id="sem" required placeholder="e.g. 1 or 2"
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">Get Courses</button>
+    </form>
 
-      </div>
+    {% if av_course %}
+    <div class="bg-white p-4 rounded shadow">
+        <h4 class="text-lg font-semibold mb-4 text-center">Course Registration</h4>
+        <form method="POST" action="{% url 'cregistration' %}" class="space-y-4">
+            {% csrf_token %}
+            <input type="hidden" name="acyear" value="{{ request.GET.acyear }}">
+            <input type="hidden" name="semister" value="{{ request.GET.semister }}">
+            
+            <div>
+                <label for="course_select" class="block font-semibold mb-1">Select Courses</label>
+                <select name="courses[]" id="course_select" multiple
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    {% for course in av_course %}
+                        <option value="{{ course.id }}">{{ course.CourseName }}</option>
+                    {% endfor %}
+                </select>
+                <p class="text-gray-500 text-sm mt-1">Hold Ctrl (Windows) or Cmd (Mac) to select multiple courses.</p>
+            </div>
+
+            <button type="submit" class="w-full bg-green-600 text-white font-semibold py-2 rounded hover:bg-green-700 transition">Submit Registration</button>
+        </form>
     </div>
-  </div>
+    {% else %}
+        <p class="text-center text-gray-600 font-semibold">No courses available for this academic year and semester.</p>
+    {% endif %}
+</div>
 {% endblock %}

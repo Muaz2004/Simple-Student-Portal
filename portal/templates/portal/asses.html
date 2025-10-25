@@ -1,48 +1,50 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-  <h2>📊 Academic Year {{ acadamicyear }} — Semester {{ semister }} Grade Report</h2>
+<div class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4">📊 Academic Year {{ acadamicyear }} — Semester {{ semister }} Grade Report</h2>
 
-  <!-- Form for submitting academic year and semester -->
-  <form action="{% url 'asses' %}" method="get" class="filter-form">
-    {% csrf_token %}
-    
-    <div class="form-group mb-2">
-      <label for="year">Academic Year</label>
-      <input type="number" name="acadamicyear" id="year" class="form-control" required placeholder="e.g. 2024">
+    <!-- Form for submitting academic year and semester -->
+    <form action="{% url 'asses' %}" method="get" class="space-y-4 bg-white p-4 rounded shadow">
+        {% csrf_token %}
+        <div>
+            <label for="year" class="block font-semibold mb-1">Academic Year</label>
+            <input type="number" name="acadamicyear" id="year" required placeholder="e.g. 2024" 
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <div>
+            <label for="sem" class="block font-semibold mb-1">Semester</label>
+            <input type="number" name="semister" id="sem" required placeholder="e.g. 1 or 2"
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">Get Grade Report</button>
+    </form>
+
+    {% if sgpa is not None %}
+    <h4 class="text-center text-lg mt-6 font-semibold">SGPA = <span class="text-blue-600">{{ sgpa }}</span></h4>
+
+    <div class="overflow-x-auto mt-4">
+        <table class="min-w-full bg-white rounded shadow overflow-hidden">
+            <thead class="bg-blue-100">
+                <tr>
+                    <th class="px-4 py-2 text-left">Course Name</th>
+                    <th class="px-4 py-2 text-left">Result</th>
+                    <th class="px-4 py-2 text-left">Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ass in assessments %}
+                <tr class="border-b">
+                    <td class="px-4 py-2">{{ ass.course.CourseName }}</td>
+                    <td class="px-4 py-2">{{ ass.result }}</td>
+                    <td class="px-4 py-2">{{ ass.Grade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-    <div class="form-group mb-3">
-      <label for="sem">Semester</label>
-      <input type="number" name="semister" id="sem" class="form-control" required placeholder="e.g. 1 or 2">
-    </div>
-
-    <button type="submit" class="btn btn-success w-100">Get Grade Report</button>
-  </form>
-
-  {% if sgpa is not None %}
-    <h4 class="text-center mt-4">Academic Year {{ acadamicyear }} — Semester {{ semister }}: <strong>SGPA = {{ sgpa }}</strong></h4>
-
-    <!-- Grade Report Table -->
-    <div class="grade-report-container mt-4">
-      <table class="table table-striped table-bordered">
-        <thead class="table-success">
-          <tr>
-            <th>Course Name</th>
-            <th>Result</th>
-            <th>Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for ass in assessments %}
-            <tr>
-              <td>{{ ass.course.CourseName }}</td>
-              <td>{{ ass.result }}</td>
-              <td>{{ ass.Grade }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  {% endif %}
+    {% endif %}
+</div>
 {% endblock %}

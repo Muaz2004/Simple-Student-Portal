@@ -1,24 +1,26 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
+<div class="flex justify-center items-center min-h-[80vh]">
+    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
 
-    <h2>Login</h2>
+        {% if message %}
+            <p class="text-red-600 font-semibold mb-4 text-center">{{ message }}</p>
+        {% endif %}
 
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
+        <form action="{% url 'login' %}" method="post" class="space-y-4">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input type="password" name="password" placeholder="Password" required
+                   class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition">Login</button>
+        </form>
 
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
-        </div>
-        <input class="btn btn-primary" type="submit" value="Login">
-    </form>
-
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
-
+        <p class="mt-4 text-center text-gray-700">Don't have an account? 
+            <a href="{% url 'register' %}" class="text-blue-600 font-semibold hover:underline">Register here</a>
+        </p>
+    </div>
+</div>
 {% endblock %}
