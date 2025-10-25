@@ -1,23 +1,30 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-    {% if profile is not None %}
-        <h4>{{ profile.name }} student at AAU</h4>
-        <ul>
-            <li><strong>Name:</strong> {{ profile.name }}</li>
-            <li><strong>Department:</strong> {{ profile.department }}</li> 
-            <li><strong>CGPA:</strong> {{ profile.cgpa }}</li>
-            <li><strong>Batch:</strong> {{ profile.department.acadamicyear }}</li>
-        </ul>
+  <h3 class="text-center mb-4">🎓 Student Profile</h3>
+  
+  {% if profile %}
+    <div class="card shadow p-4 rounded-4 mx-auto" style="max-width: 500px;">
+      <ul class="list-unstyled">
+        <li><strong>Name:</strong> {{ profile.name.username|default:"Not Found" }}</li>
+        <li><strong>Department:</strong> {{ profile.department.dep_name|default:"Not Found" }}</li>
+        <li><strong>Batch (Academic Year):</strong> {{ profile.department.acadamicyear|default:"Not Found" }}</li>
+        <li><strong>CGPA:</strong> {{ profile.cgpa|default:"Not Found" }}</li>
+      </ul>
 
-        {% if profile.image %}
-        <img src="{{ profile.image }}" alt="photo">
-        {% else %}
-            <form action="{% url 'upload' %}" method="get">
-                <label for="imageUrl">Enter image URL:</label>
-                <input type="url" id="imageUrl" name="img" placeholder="https://example.com/image.jpg" required>
-                <button type="submit">Submit</button>
-            </form>
-        {% endif %}
-    {% endif %}
+      {% if profile.image %}
+        <div class="text-center mt-3">
+          <img src="{{ profile.image }}" alt="Student photo" class="img-fluid rounded-circle" width="150">
+        </div>
+      {% else %}
+        <form action="{% url 'upload' %}" method="get" class="mt-3">
+          <label for="imageUrl">Enter image URL:</label>
+          <input type="url" id="imageUrl" name="img" class="form-control" placeholder="https://example.com/image.jpg" required>
+          <button type="submit" class="btn btn-primary mt-2 w-100">Upload</button>
+        </form>
+      {% endif %}
+    </div>
+  {% else %}
+    <h4 class="text-center text-danger">Student profile not found.</h4>
+  {% endif %}
 {% endblock %}

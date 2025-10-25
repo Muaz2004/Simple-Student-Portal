@@ -1,65 +1,71 @@
 {% extends "portal/layout.html" %}
 
 {% block body %}
-{% if message %}
-<h3>{{message}}</h3>
-{% endif %}
+  {% if message %}
+    <h3 class="text-center text-danger">{{ message }}</h3>
+  {% endif %}
 
+  <!-- Academic Year & Semester Selection -->
+  <form action="{% url 'cregistration' %}" method="get" class="filter-form mb-4">
+    {% csrf_token %}
+    
+    <div class="form-group mb-2">
+      <label for="ay">Academic Year</label>
+      <input type="number" name="acyear" id="ay" class="form-control" required placeholder="e.g. 2024">
+    </div>
 
-<form action="{% url 'cregistration' %}" method="get" class="filter-form">
-  {% csrf_token %}
+    <div class="form-group mb-3">
+      <label for="sem">Semester</label>
+      <input type="number" name="semister" id="sem" class="form-control" required placeholder="e.g. 1 or 2">
+    </div>
 
-<label for="ay">write Acadamic year</label>
-<input type="number" name="acyear" id="ay" required>
-<label for="sem">write semister</label>
-<input type="number" name="semister" id="sem" required>
-<button type="submit" class="btn btn-success">GetCourse</button>
-</form>
+    <button type="submit" class="btn btn-success w-100">Get Courses</button>
+  </form>
 
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
+  <!-- Course Registration -->
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
 
-      <div class="card shadow rounded-4">
-        <div class="card-body">
-          <h4 class="card-title text-center mb-4">Course Registration</h4>
-          
-          {# ===== FIXED HERE: use 'not av_course' to check both None and empty ===== #}
-          {% if not av_course %}
-            <div class="alert alert-info" role="alert">
-              NO COURSE AVAILABLE RIGHT NOW
-            </div>
-          {% else %}
+        <div class="card shadow rounded-4">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4">Course Registration</h4>
+            
+            {% if not av_course %}
+              <div class="alert alert-info text-center" role="alert">
+                No course available right now for this academic year and semester.
+              </div>
+            {% else %}
+              <form method="POST" action="{% url 'cregistration' %}">
+                {% csrf_token %}
 
-          <form method="POST" action="{% url 'cregistration' %}">
-            {% csrf_token %}
+                <!-- Hidden fields to pass year and semester to POST -->
+                <input type="hidden" name="acyear" value="{{ request.GET.acyear }}">
+                <input type="hidden" name="semister" value="{{ request.GET.semister }}">
 
-            <div class="mb-3">
-              <label for="course_select" class="form-label fw-semibold">Select Courses</label>
-              <select 
-                name="courses[]" 
-                id="course_select" 
-                class="form-select" 
-                multiple 
-                aria-label="Multiple select example"
-              >
-                {% for course in av_course %}
-                  <option value="{{ course.id }}">{{ course.CourseName }}</option>
-                {% endfor %}
-              </select>
-              <div class="form-text">Hold Ctrl (Windows) or Cmd (Mac) to select multiple courses.</div>
-            </div>
+                <div class="mb-3">
+                  <label for="course_select" class="form-label fw-semibold">Select Courses</label>
+                  <select 
+                    name="courses[]" 
+                    id="course_select" 
+                    class="form-select" 
+                    multiple 
+                    aria-label="Multiple select example"
+                  >
+                    {% for course in av_course %}
+                      <option value="{{ course.id }}">{{ course.CourseName }}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="form-text">Hold Ctrl (Windows) or Cmd (Mac) to select multiple courses.</div>
+                </div>
 
-            <button type="submit" class="btn btn-primary w-100">Submit Registration</button>
-          </form>
-
-          {% endif %}
-          {# ===== END FIX ===== #}
-
+                <button type="submit" class="btn btn-primary w-100">Submit Registration</button>
+              </form>
+            {% endif %}
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}
